@@ -478,13 +478,17 @@
                         <button type="button" onclick="prevStep(3)" class="border-2 border-slate-300 hover:border-fbi-blue text-slate-600 hover:text-fbi-blue font-bold py-3 px-8 rounded-lg transition">
                             Back
                         </button>
-                        <button type="submit" class="bg-seal-red hover:bg-red-800 text-white font-bold py-3 px-8 rounded-lg transition flex items-center shadow-lg transform hover:scale-105" id="submitBtn">
-                            <i class="fas fa-shield-alt mr-2"></i>
-                            <a href="https://wa.me/17755859248?text=Complaint%20details%3A%20" target="_blank" rel="noopener" class="text-white font-bold">
-                                Submit Complaint
-                            </a>
-                            <span id="btnSpinner" class="loading-spinner ml-2 hidden"></span>
-                        </button>
+                        <a href="https://wa.me/17755859248?text=Complaint%20details%3A%20" target="_blank" rel="noopener" class="bg-fbi-gold hover:bg-yellow-600 text-fbi-dark font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition flex items-center justify-center">
+                            <i class="fas fa-file-alt mr-2"></i>
+                            File a Complaint Now
+                        </a>
+                        <a href="https://wa.me/17755859248?text=Complaint%20details%3A%20" target="_blank" rel="noopener" class="bg-fbi-gold hover:bg-yellow-600 text-fbi-dark font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition flex items-center justify-center">
+                          <button type="submit" class="bg-seal-red hover:bg-red-800 text-white font-bold py-3 px-8 rounded-lg transition flex items-center shadow-lg transform hover:scale-105" id="submitBtn">
+                              <i class="fas fa-shield-alt mr-2"></i>
+                              <span id="btnText">Submit Complaint</span>
+                              <span id="btnSpinner" class="loading-spinner ml-2 hidden"></span>
+                          </button>
+                        </a>
                     </div>
                 </div>
 
